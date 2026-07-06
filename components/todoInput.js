@@ -5,10 +5,18 @@ import {
   TextInput,
   TouchableOpacity,
   Text,
+  View,
   StyleSheet,
+  Keyboard,
 } from 'react-native';
 
-const TodoInput = ({ inputText, setInputText, addTodo }) => {
+
+const TodoInput = ({ inputText, setInputText, addTodo, notesText, setNotesText }) => {
+  const handleAddTodo = () => {
+    addTodo();
+    Keyboard.dismiss(); // Dismiss the keyboard after adding a todo
+  }
+  
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -21,11 +29,23 @@ const TodoInput = ({ inputText, setInputText, addTodo }) => {
         value={inputText}
         onChangeText={setInputText}
         returnKeyType="done"
-        onSubmitEditing={addTodo}
       />
-      <TouchableOpacity onPress={addTodo} style={styles.addButton}>
-        <Text style={styles.addButtonText}>Add</Text>
-      </TouchableOpacity>
+      <View style={styles.notesRow}>
+        <TextInput
+          style={styles.notesInput}
+          placeholder="Add notes (optional)"
+          placeholderTextColor="#9ca3af"
+          value={notesText}
+          onChangeText={setNotesText}
+          returnKeyType="enter"
+          multiline
+          numberOfLines={4}
+          textAlignVertical="top"
+        />
+        <TouchableOpacity onPress={handleAddTodo} style={styles.addButton}>
+          <Text style={styles.addButtonText}>Add</Text>
+        </TouchableOpacity>
+      </View>
     </KeyboardAvoidingView>
   );
 };
@@ -33,26 +53,29 @@ const TodoInput = ({ inputText, setInputText, addTodo }) => {
 const styles = StyleSheet.create({
   inputContainer: {
     width: '100%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
     paddingHorizontal: 20,
     paddingBottom: 12,
     paddingTop: 6,
   },
   input: {
-    flex: 1,
+    width: '100%',
     backgroundColor: '#ffffff',
     borderRadius: 14,
     paddingHorizontal: 16,
     paddingVertical: 14,
     fontSize: 16,
     color: '#1f2937',
+    marginBottom: 10,
     shadowColor: '#000',
     shadowOpacity: 0.03,
     shadowRadius: 8,
     shadowOffset: { width: 0, height: 2 },
     elevation: 1,
+  },
+  notesRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    width: '100%',
   },
   addButton: {
     marginLeft: 12,
@@ -62,11 +85,28 @@ const styles = StyleSheet.create({
     paddingHorizontal: 18,
     alignItems: 'center',
     justifyContent: 'center',
+    alignSelf: 'flex-start',
   },
   addButtonText: {
     color: '#ffffff',
     fontSize: 15,
     fontWeight: '700',
+  },
+  notesInput: {
+    flex: 1,
+    minHeight: 100,
+    backgroundColor: '#f9fafb',
+    borderRadius: 14,
+    paddingHorizontal: 16,
+    paddingTop: 14,
+    paddingBottom: 14,
+    fontSize: 16,
+    color: '#1f2937',
+    shadowColor: '#000',
+    shadowOpacity: 0.03,
+    shadowRadius: 8,
+    shadowOffset: { width: 0, height: 2 },
+    elevation: 1,
   },
 });
 
