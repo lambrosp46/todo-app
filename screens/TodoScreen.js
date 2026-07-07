@@ -1,8 +1,13 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { editTodos } from '../hooks/editTodos';
 
 export default function TodoScreen({ route, todos }) {
-  const { todoId } = route.params;
+  const {
+  editTodoTitle,
+  editTodoNotes } = editTodos();
   
+  const { todoId } = route.params;
+  const edit = useTodos();
   const todo = todos.find((t) => t.id === todoId);
 
   if(!todo) {
@@ -17,6 +22,9 @@ export default function TodoScreen({ route, todos }) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{todo.text}</Text>
+      <TouchableOpacity style={styles.editButton} onPress={() => navigation.navigate('EditTodo', { todoId: todo.id })}>
+        <Text></Text>
+      </TouchableOpacity>
       <Text style={styles.subtitle}>{todo.notes}</Text>
     </View>
   );
