@@ -16,6 +16,8 @@ export default function App() {
     addTodo,
     deleteTodo,
     toggleTodoCompletion,
+    editTodoTitle,
+    editTodoNotes,
   } = useTodos();
 
   return (
@@ -48,6 +50,10 @@ export default function App() {
           <TodoScreen 
           {...props} 
           todos = {todos}
+          editTodoTitle={editTodoTitle}
+          editTodoNotes={editTodoNotes}
+          toggleTodoCompletion={toggleTodoCompletion}
+          deleteTodo={deleteTodo}
         />)}
       </Stack.Screen>
       </Stack.Navigator>
