@@ -35,6 +35,22 @@ export default function useTodos() {
       )
     );
   };
+    
+  const editTodoTitle = (id, newTitle) => {
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) =>
+        todo.id === id ? { ...todo, text: newTitle } : todo
+      )
+    );
+  };
+
+  const editTodoNotes = (id, newNotes) => {
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) =>
+        todo.id === id ? { ...todo, notes: newNotes } : todo
+      )
+    );
+  };
 
   return {
     todos,
@@ -45,5 +61,7 @@ export default function useTodos() {
     addTodo,
     deleteTodo,
     toggleTodoCompletion,
+    editTodoTitle,
+    editTodoNotes,
   };
 }

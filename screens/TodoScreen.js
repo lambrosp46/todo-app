@@ -5,9 +5,8 @@ export default function TodoScreen({ route, todos }) {
   const {
   editTodoTitle,
   editTodoNotes } = editTodos();
-  
+
   const { todoId } = route.params;
-  const edit = useTodos();
   const todo = todos.find((t) => t.id === todoId);
 
   if(!todo) {
