@@ -101,6 +101,7 @@ export default function HomeScreen({
         toggleTodoCompletion={toggleTodoCompletion}
         openTodoDetails={handleTodoPress}
         visibleTodos={visibleTodos}
+        filter = {filter}
       />
 
       <StatusBar style="auto" />

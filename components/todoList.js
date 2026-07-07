@@ -2,11 +2,15 @@ import React from 'react';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
 import TodoItem from './todoItem';
 
-const TodoList = ({ todos, deleteTodo, toggleTodoCompletion, openTodoDetails, visibleTodos }) => {
+const TodoList = ({ todos, deleteTodo, toggleTodoCompletion, openTodoDetails, visibleTodos, filter }) => {
   if (!visibleTodos.length) {
     return (
       <View style={styles.emptyContainer}>
-        <Text style={styles.emptyText}>No todos yet. Add your first task above.</Text>
+        <Text style={styles.emptyText}>
+          {filter === 'all' && 'No todos yet. Add your first task above.'}
+          {filter === 'incomplete' && 'No active todos yet.'}
+          {filter === 'completed' && 'No completed todos yet.'}
+        </Text>
       </View>
     );
   }
