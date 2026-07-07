@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity } from 'react-native';
 import TodoInput from '../components/todoInput';
 import TodoList from '../components/todoList';
 
@@ -14,6 +14,15 @@ export default function HomeScreen({
   deleteTodo,
   toggleTodoCompletion,
 }) {
+  const [filter, setFilter] = React.useState('all');
+  const sortedTodos = [...todos].sort((a,b) => {return Number(a.completed) - Number(b.completed)});
+  
+  const visibleTodos = sortedTodos.filter((todo) => {
+    if (filter === 'completed') return todo.completed;
+    if (filter === 'incomplete') return !todo.completed;
+    return true; // for 'all' filter
+  });
+
   const handleTodoPress = (id) => {
     navigation.navigate('TodoDetails', { todoId: id });
   };
@@ -33,11 +42,24 @@ export default function HomeScreen({
         setNotesText={setNotesText}
       />
 
+      <View style={styles.container}>
+          <TouchableOpacity onPress={() => setFilter('all')}>
+            <Text style={[styles.filterText, styles.filterButtonActive]}>All</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setFilter('completed')}>
+            <Text style={styles.filterText}>Completed</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setFilter('incomplete')}>
+            <Text style={styles.filterText}>Incomplete</Text>
+          </TouchableOpacity>
+      </View>
+
       <TodoList
         todos={todos}
         deleteTodo={deleteTodo}
         toggleTodoCompletion={toggleTodoCompletion}
         openTodoDetails={handleTodoPress}
+        visibleTodos={visibleTodos}
       />
 
       <StatusBar style="auto" />
