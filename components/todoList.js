@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
 import TodoItem from './todoItem';
 
-const TodoList = ({ todos, deleteTodo, toggleTodoCompletion }) => {
+const TodoList = ({ todos, deleteTodo, toggleTodoCompletion, openTodoDetails }) => {
   if (!todos.length) {
     return (
       <View style={styles.emptyContainer}>
@@ -18,7 +18,12 @@ const TodoList = ({ todos, deleteTodo, toggleTodoCompletion }) => {
       contentContainerStyle={styles.listContainer}
       style={styles.list}
       renderItem={({ item }) => (
-        <TodoItem todo={item} onToggle={toggleTodoCompletion} onDelete={deleteTodo} />
+        <TodoItem 
+          todo={item}
+          onToggle={toggleTodoCompletion}
+          onDelete={deleteTodo}
+          onOpen={openTodoDetails}
+        />
       )}
       showsVerticalScrollIndicator={false}
     />

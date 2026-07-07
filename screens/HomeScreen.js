@@ -4,6 +4,7 @@ import TodoInput from '../components/todoInput';
 import TodoList from '../components/todoList';
 
 export default function HomeScreen({
+  navigation,
   todos,
   inputText,
   notesText,
@@ -13,6 +14,10 @@ export default function HomeScreen({
   deleteTodo,
   toggleTodoCompletion,
 }) {
+  const handleTodoPress = (id) => {
+    navigation.navigate('TodoDetails', { todoId: id });
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -32,6 +37,7 @@ export default function HomeScreen({
         todos={todos}
         deleteTodo={deleteTodo}
         toggleTodoCompletion={toggleTodoCompletion}
+        openTodoDetails={handleTodoPress}
       />
 
       <StatusBar style="auto" />

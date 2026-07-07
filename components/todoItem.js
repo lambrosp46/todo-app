@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 
-const TodoItem = ({ todo, onToggle, onDelete }) => {
+const TodoItem = ({ todo, onToggle, onDelete, onOpen }) => {
     const deleteConfirmation = () => {
         Alert.alert(
             'Delete Todo',
@@ -20,7 +20,12 @@ const TodoItem = ({ todo, onToggle, onDelete }) => {
         <View style={[styles.checkboxInner, todo.completed && styles.checkboxInnerChecked]} />
       </TouchableOpacity>
 
-      <Text style={[styles.text, todo.completed && styles.textCompleted]}>{todo.text}</Text>
+      <TouchableOpacity
+        style={styles.todoContent}
+        onPress={() => onOpen(todo.id)}
+      > 
+          <Text style={[styles.text, todo.completed && styles.textCompleted]}>{todo.text}</Text> 
+      </TouchableOpacity>
 
       <TouchableOpacity onPress={deleteConfirmation} style={styles.deleteButton}>
         <Text style={styles.deleteText}>Delete</Text>
@@ -30,6 +35,9 @@ const TodoItem = ({ todo, onToggle, onDelete }) => {
 };
 
 const styles = StyleSheet.create({
+  todoContent: {
+  flex: 1,
+  },
   itemContainer: {
     flexDirection: 'row',
     alignItems: 'center',
