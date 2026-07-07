@@ -16,7 +16,7 @@ const TodoInput = ({ inputText, setInputText, addTodo, notesText, setNotesText }
     addTodo();
     Keyboard.dismiss(); // Dismiss the keyboard after adding a todo
   }
-  
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
