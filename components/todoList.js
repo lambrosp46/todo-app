@@ -2,8 +2,8 @@ import React from 'react';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
 import TodoItem from './todoItem';
 
-const TodoList = ({ todos, deleteTodo, toggleTodoCompletion, openTodoDetails }) => {
-  if (!todos.length) {
+const TodoList = ({ todos, deleteTodo, toggleTodoCompletion, openTodoDetails, visibleTodos }) => {
+  if (!visibleTodos.length) {
     return (
       <View style={styles.emptyContainer}>
         <Text style={styles.emptyText}>No todos yet. Add your first task above.</Text>
@@ -13,7 +13,7 @@ const TodoList = ({ todos, deleteTodo, toggleTodoCompletion, openTodoDetails }) 
 
   return (
     <FlatList
-      data={todos}
+      data={visibleTodos}
       keyExtractor={(item) => item.id.toString()}
       contentContainerStyle={styles.listContainer}
       style={styles.list}

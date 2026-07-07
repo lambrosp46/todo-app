@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity } from 'react-native';
 import TodoInput from '../components/todoInput';
 import TodoList from '../components/todoList';
+import { useState } from 'react';
 
 export default function HomeScreen({
   navigation,
@@ -14,7 +15,7 @@ export default function HomeScreen({
   deleteTodo,
   toggleTodoCompletion,
 }) {
-  const [filter, setFilter] = React.useState('all');
+  const [filter, setFilter] = useState('all');
   const sortedTodos = [...todos].sort((a,b) => {return Number(a.completed) - Number(b.completed)});
   
   const visibleTodos = sortedTodos.filter((todo) => {
@@ -42,16 +43,56 @@ export default function HomeScreen({
         setNotesText={setNotesText}
       />
 
-      <View style={styles.container}>
-          <TouchableOpacity onPress={() => setFilter('all')}>
-            <Text style={[styles.filterText, styles.filterButtonActive]}>All</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => setFilter('completed')}>
-            <Text style={styles.filterText}>Completed</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => setFilter('incomplete')}>
-            <Text style={styles.filterText}>Incomplete</Text>
-          </TouchableOpacity>
+      <View style={styles.filterRow}>
+        <TouchableOpacity
+          style={[
+            styles.filterButton,
+            filter === 'all' && styles.filterButtonActive,
+          ]}
+          onPress={() => setFilter('all')}
+        >
+          <Text
+            style={[
+              styles.filterText,
+              filter === 'all' && styles.filterTextActive,
+            ]}
+          >
+            All
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[
+            styles.filterButton,
+            filter === 'incomplete' && styles.filterButtonActive,
+          ]}
+          onPress={() => setFilter('incomplete')}
+        >
+          <Text
+            style={[
+              styles.filterText,
+              filter === 'incomplete' && styles.filterTextActive,
+            ]}
+          >
+            Active
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[
+            styles.filterButton,
+            filter === 'completed' && styles.filterButtonActive,
+          ]}
+          onPress={() => setFilter('completed')}
+        >
+          <Text
+            style={[
+              styles.filterText,
+              filter === 'completed' && styles.filterTextActive,
+            ]}
+          >
+            Done
+          </Text>
+        </TouchableOpacity>
       </View>
 
       <TodoList
@@ -89,5 +130,30 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#556680',
     lineHeight: 22,
+  },
+  filterRow: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    marginVertical: 14,
+  },
+  filterButton: {
+    flex: 1,
+    paddingVertical: 12,
+    marginHorizontal: 4,
+    borderRadius: 14,
+    backgroundColor: '#dbe7ff',
+    alignItems: 'center',
+  },
+  filterButtonActive: {
+    backgroundColor: '#4f46e5',
+  },
+  filterText: {
+    color: '#1f2a56',
+    fontWeight: '600',
+  },
+  filterTextActive: {
+    color: '#ffffff',
   },
 });

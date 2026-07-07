@@ -75,7 +75,7 @@ export default function TodoScreen({ navigation, route, todos, editTodoTitle, ed
           </View>
 
           <TouchableOpacity style={styles.actionButton} onPress={handleEditTitle}>
-            <Text style={styles.actionButtonText}>{isEditingTitle ? 'Save' : 'Edit'}</Text>
+            <Text style={styles.actionButtonText}>{isEditingTitle ? 'Done' : 'Edit'}</Text>
           </TouchableOpacity>
         </View>
 
@@ -105,7 +105,7 @@ export default function TodoScreen({ navigation, route, todos, editTodoTitle, ed
           </View>
 
           <TouchableOpacity style={styles.actionButton} onPress={handleEditNotes}>
-            <Text style={styles.actionButtonText}>{isEditingNotes ? 'Save' : 'Edit'}</Text>
+            <Text style={styles.actionButtonText}>{isEditingNotes ? 'Done' : 'Edit'}</Text>
           </TouchableOpacity>
         </View>
 
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
     lineHeight: 22,
   },
   actionButton: {
-    backgroundColor: '#4338ca',
+    backgroundColor: '#4f46e5',
     borderRadius: 999,
     paddingVertical: 8,
     paddingHorizontal: 14,
@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#dcfce7',
   },
   secondaryButtonText: {
-    color: '#4338ca',
+    color: '#4f46e5',
     fontWeight: '700',
     fontSize: 14,
   },
